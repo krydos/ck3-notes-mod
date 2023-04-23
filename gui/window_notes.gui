@@ -6,7 +6,7 @@ window = {
 	name = "notes_window"
 	size = { 750 1000 }
 	parentanchor = center
-	datacontext = "[NotesWindow.GetCharacter]"
+	datacontext = "[GetScriptedGui('notes_gui')]"
 
 	layer = top
 
@@ -79,6 +79,46 @@ window = {
 				vbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
+					
+					vbox = {
+						name = "textinput_holder"						
+						layoutpolicy_horizontal = expanding
+						spacing = 0
+
+
+						editbox_standard_with_label = {
+							layoutpolicy_horizontal = expanding
+							minimumsize = { -1 140 }
+
+							blockoverride "editbox_label"
+							{
+								text = "NOTE_TEXTAREA_TITLE"
+							}
+
+							blockoverride "editbox_properties"
+							{
+								name = "note_textarea"
+								multiline = yes          
+							}
+						}
+
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							background = {
+								using = Background_Area
+								margin = { 20 20 }
+							}
+
+							button_primary = {
+								name = "add_note_button"
+
+								text = "ADD_NOTE"
+								onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]"
+							}
+						}
+					}
 
 					scrollbox = {
 						layoutpolicy_horizontal = expanding
@@ -91,54 +131,11 @@ window = {
 							margin_bottom = 0
 
 							vbox = {
-								datamodel = "[GetScriptedGui('notes_gui')]"
+								datamodel = "[GetPlayer.MakeScope.GetList('notes')]"
 								layoutpolicy_horizontal = expanding
 								spacing = 0
 
-                                                                editbox_standard_with_label = {
-                                                                        layoutpolicy_horizontal = expanding
-                                                                        minimumsize = { -1 140 }
-
-                                                                        blockoverride "editbox_label"
-                                                                        {
-                                                                                text = "NOTE_TEXTAREA_TITLE"
-                                                                        }
-
-                                                                        blockoverride "editbox_properties"
-                                                                        {
-                                                                                name = "note_textarea"
-                                                                                multiline = yes
-                                                                                onclick = [ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]
-                                                                        }
-                                                                        
-                                                                }
-
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									background = {
-										using = Background_Area
-
-										margin = { 20 20}
-									}
-
-									button_primary = {
-										name = "add_note_button"
-
-										text = "ADD_NOTE"
-										#enabled = "[HouseCustomizationWindow.CanClickFinish]"
-										#tooltip = "[HouseCustomizationWindow.GetCanClickFinishText]"
-										#onclick = "[HouseCustomizationWindow.OnClickFinish]"
-									}
-
-									text_single = {
-										text = "[GetPlayer.MakeScope.Var('test_var').GetValue|1]"
-			                                                }
-								}
-
 								item = {
-
 									hbox = {
 										layoutpolicy_horizontal = expanding
 										margin_bottom = 5
@@ -164,10 +161,6 @@ window = {
 												using = tooltip_ws
 											}
 										}
-
-
-
-
 
 										text_multi = {
 											max_width = 440

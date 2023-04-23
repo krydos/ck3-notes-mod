@@ -2,8 +2,12 @@
 
 GAME_PATH="$(realpath ~/Library/Application\ Support/Steam/steamapps/common/Crusader\ Kings\ III)"
 
-function log {
+function log-error {
     tail -f ../../logs/error.log
+}
+
+function log-debug {
+    tail -f ../../logs/debug.log
 }
 
 function rg_gamefiles {
