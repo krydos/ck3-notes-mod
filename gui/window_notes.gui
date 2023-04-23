@@ -114,28 +114,28 @@ window = {
                                                                 }
 
 
-                                                             hbox = {
-                                                                     layoutpolicy_horizontal = expanding
+								hbox = {
+									layoutpolicy_horizontal = expanding
 
-                                                                     background = {
-                                                                             using = Background_Area
+									background = {
+										using = Background_Area
 
-                                                                             margin = { 20 20}
-                                                                     }
+										margin = { 20 20}
+									}
 
-                                                                     button_primary = {
-                                                                             name = "add_note_button"
+									button_primary = {
+										name = "add_note_button"
 
-                                                                             text = "ADD_NOTE"
-                                                                             #enabled = "[HouseCustomizationWindow.CanClickFinish]"
-                                                                             #tooltip = "[HouseCustomizationWindow.GetCanClickFinishText]"
-                                                                             #onclick = "[HouseCustomizationWindow.OnClickFinish]"
-                                                                     }
+										text = "ADD_NOTE"
+										#enabled = "[HouseCustomizationWindow.CanClickFinish]"
+										#tooltip = "[HouseCustomizationWindow.GetCanClickFinishText]"
+										#onclick = "[HouseCustomizationWindow.OnClickFinish]"
+									}
 
-text_single = {
-				                                             text = "[GetPlayer.MakeScope.Var('test_var').GetValue|1]"
+									text_single = {
+										text = "[GetPlayer.MakeScope.Var('test_var').GetValue|1]"
 			                                                }
-                                                             }
+								}
 
 								item = {
 
