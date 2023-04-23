@@ -1,0 +1,207 @@
+######################################################
+################# NOTES VIEW #########################
+######################################################
+
+window = {
+	name = "notes_window"
+	size = { 750 1000 }
+	parentanchor = center
+	datacontext = "[NotesWindow.GetCharacter]"
+
+	layer = top
+
+	using = Window_Movable
+	using = Window_Background
+	using = Window_Decoration_Spike
+	using = Animation_ShowHide_Standard
+
+	vbox = {
+		using = Window_Margins
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "NOTES_WINDOW_HEADING"
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[ExecuteConsoleCommand('gui.ClearWidgets notes_window')]"
+			}
+
+			button_copy = {
+				parentanchor = right|vcenter
+				position = { -50 -4 }
+				size = { 30 30 }
+				onclick = "[NotesWindow.CopyMemoriesToClipboard]"
+				tooltip = "MEMORIES_WINDOW_COPY_TO_CLIPBOARD"
+			}
+
+			button_pin = {
+				parentanchor = right|vcenter
+				position = { -80 -4 }
+				name = "button_pin"
+				visible = "[Not( NotesWindow.IsPinned )]"
+				onclick = "[NotesWindow.TogglePinned]"
+				tooltip = "MEMORIES_WINDOW_PIN_IT"
+				using = tooltip_se
+			}
+
+			button_unpin = {
+				parentanchor = right|vcenter
+				position = { -80 -4 }
+				name = "button_unpin"
+				visible = "[NotesWindow.IsPinned]"
+				onclick = "[NotesWindow.TogglePinned]"
+				tooltip = "MEMORIES_WINDOW_PIN_IT"
+				using = tooltip_se
+			}
+		}
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			margin_left = 4
+			margin_right = 4
+
+			vbox = {
+				name = "paper_contract"
+				margin_top = 12
+				margin_bottom = 12
+				margin_right = -3
+
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = Background_Letter
+				spacing = 4
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					scrollbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+
+						blockoverride "scrollbox_background" {}
+						blockoverride "scrollbox_background_fade" {}
+						blockoverride "scrollbox_content" {
+							margin_top = 0
+							margin_bottom = 0
+
+							vbox = {
+								datamodel = "[GetScriptedGui('notes_gui')]"
+								layoutpolicy_horizontal = expanding
+								spacing = 0
+
+                                                                editbox_standard_with_label = {
+                                                                        layoutpolicy_horizontal = expanding
+                                                                        minimumsize = { -1 140 }
+
+                                                                        blockoverride "editbox_label"
+                                                                        {
+                                                                                text = "NOTE_TEXTAREA_TITLE"
+                                                                        }
+
+                                                                        blockoverride "editbox_properties"
+                                                                        {
+                                                                                name = "note_textarea"
+                                                                                multiline = yes
+                                                                                onclick = [ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]
+                                                                        }
+                                                                        
+                                                                }
+
+
+                                                             hbox = {
+                                                                     layoutpolicy_horizontal = expanding
+
+                                                                     background = {
+                                                                             using = Background_Area
+
+                                                                             margin = { 20 20}
+                                                                     }
+
+                                                                     button_primary = {
+                                                                             name = "add_note_button"
+
+                                                                             text = "ADD_NOTE"
+                                                                             #enabled = "[HouseCustomizationWindow.CanClickFinish]"
+                                                                             #tooltip = "[HouseCustomizationWindow.GetCanClickFinishText]"
+                                                                             #onclick = "[HouseCustomizationWindow.OnClickFinish]"
+                                                                     }
+
+text_single = {
+				                                             text = "[GetPlayer.MakeScope.Var('test_var').GetValue|1]"
+			                                                }
+                                                             }
+
+								item = {
+
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										margin_bottom = 5
+										margin_left = 10
+										margin_right = 10
+										background = {
+											using = Background_Area
+											alpha = 0.4
+										}
+
+
+
+										vbox = {
+											size = { 26 26 }
+											margin_top = 3
+											margin_right = 5
+											icon = {
+												size = { 26 26 }
+												texture = "[CharacterMemory.GetType.GetIcon]"
+												alwaystransparent = yes
+												alpha = 0.7
+												tooltip = "[CharacterMemory.GetName|U]"
+												using = tooltip_ws
+											}
+										}
+
+
+
+
+
+										text_multi = {
+											max_width = 440
+											autoresize = yes
+											align = left
+											text = "MEMORIES_WINDOW_ENTRY"
+											margin_right = 5
+											elide = right
+											default_format = "#light_background"
+										}
+
+										expand = {}
+
+										text_single = {
+											alpha = 0.5
+											text = "[CharacterMemory.GetCreationDate.GetString]"
+											size = { 200 0 }
+											align = right
+											elide = right
+											default_format = "#light_background"
+										}
+									}
+								}
+							}
+						}
+
+						blockoverride "scrollbox_empty"
+						{
+							visible = "[IsDataModelEmpty( NotesWindow.GetFilteredMemories )]"
+							text = "CHARACTER_HAS_NO_MEMORIES"
+						}
+					}
+				}
+			}
+		}
+	}
+}

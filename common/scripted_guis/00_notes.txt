@@ -1,0 +1,14 @@
+notes_gui = {
+	scope = character 		# the root scope, i.e. the target of the effects
+	saved_scopes = {} 		# any additional targets
+
+	is_shown = {}   		# is it visible on the UI?
+
+	ai_is_valid = {} 		# is the AI allowed to use it? Disabled by default.
+
+	is_valid = {} 		# can the player use it?
+
+        effect = {
+                set_variable = test_var
+        }
+}

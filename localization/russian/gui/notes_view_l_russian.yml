@@ -1,0 +1,4 @@
+l_russian:
+ NOTES_WINDOW_HEADING:0 "[Select_CString( MemoriesWindow.GetCharacter.IsValid, MemoriesWindow.GetCharacter.GetShortUINameNoTooltip, 'Никто не')|U] заметки"
+ OPEN_NOTES_TOOLTIP:0 "#I Посмотреть заметки на этого персонажа#!"
+ NOTE_TEXTAREA_TITLE:0 "Такст заметки"
