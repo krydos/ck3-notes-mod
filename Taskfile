@@ -1,7 +1,13 @@
 #!/bin/bash
 
+GAME_PATH="$(realpath ~/Library/Application\ Support/Steam/steamapps/common/Crusader\ Kings\ III)"
+
 function log {
     tail -f ../../logs/error.log
+}
+
+function rg_gamefiles {
+    rg -i $1 "$GAME_PATH/game"
 }
 
 function help {
