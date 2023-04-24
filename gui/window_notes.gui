@@ -9,7 +9,7 @@ window = {
 	parentanchor = center
 
 	datacontext = "[GetVariableSystem]"
-	datacontext = "[Character]"
+	#datacontext = "[Character]"
 
 	layer = top
 
@@ -69,7 +69,7 @@ window = {
 						
 						name = "note_textarea"
 						#text = "[Select_CString( GetVariableSystem.Exists('notes_character'), 'hello', 'world' )]"
-						text = "[GetPlayer.MakeScope.Var('test_value').GetValue.MakeScope.GetID]"
+						text = "[GetPlayer.MakeScope.Var('test_value').Char.GetID]"
 						#text = "[GetVariableSystem.Get( 'testing' )]"
 						multiline = yes          
 					}
