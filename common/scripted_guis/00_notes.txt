@@ -6,7 +6,7 @@ notessetvar_gui = {
         effect = {
 		debug_log = "notes.txt notessetvar_gui"
 		set_variable = {
-			name = "test_value"
+			name = "currently_selected_character"
 			value = scope:target
 		}
 		debug_log_scopes = yes
@@ -14,25 +14,20 @@ notessetvar_gui = {
 }
 
 notes_gui = {
-	scope = character 		# the root scope, i.e. the target of the effects
+	scope = character
+
 	saved_scopes = {
 		target
-	} 		
-
-	# is_shown = {}   		# is it visible on the UI?
-
-	# ai_is_valid = {} 		# is the AI allowed to use it? Disabled by default.
-
-	# is_valid = {} 		# can the player use it?
-
+	}
+	
         effect = {
 		debug_log = "notes_gui executed"
+		set_variable = {
+			name = "test_value"
+			value = 1111
+		}
 
-		# add_to_variable_list = {
-		# 	name = notes
-		# 	target = root
-		# }
-		#debug_log_scopes = yes
+		debug_log_scopes = yes
         }
 }
 

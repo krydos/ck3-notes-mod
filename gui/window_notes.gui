@@ -9,7 +9,6 @@ window = {
 	parentanchor = center
 
 	datacontext = "[GetVariableSystem]"
-	#datacontext = "[Character]"
 
 	layer = top
 
@@ -21,8 +20,6 @@ window = {
 	using = Animation_ShowHide_Standard
 
 	datacontext = "[GetScriptedGui('notes_gui')]"
-	#datacontext = "[GetScriptedGui('notessetvar_gui')]"
-	#datacontext = "[CharacterWindow.GetCharacter]"
 
 	vbox = {
 		using = Window_Margins
@@ -33,7 +30,7 @@ window = {
 
 			blockoverride "header_text"
 			{
-				text = "NOTES_WINDOW_HEADING"
+				text = "[GetPlayer.MakeScope.Var('currently_selected_character').Char.GetID]"
 			}
 
 			blockoverride "button_close"
@@ -58,19 +55,15 @@ window = {
 
 					blockoverride "editbox_label"
 					{
-						text = "NOTE_TEXTAREA_TITLE"
+						#text = "NOTE_TEXTAREA_TITLE"
+						text = "[GetPlayer.MakeScope.Var('currently_selected_character').Char.MakeScope.Var('test_value').GetValue]"
 					}
 
 					blockoverride "editbox_properties"
 					{
-						#datacontext = "[CharacterWindow.GetCharacter]"
-						#datacontext = "[GetPlayer]"
-						
-						
 						name = "note_textarea"
-						#text = "[Select_CString( GetVariableSystem.Exists('notes_character'), 'hello', 'world' )]"
-						text = "[GetPlayer.MakeScope.Var('test_value').Char.GetID]"
-						#text = "[GetVariableSystem.Get( 'testing' )]"
+						text = ""
+						ontextedited = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope.Var('currently_selected_character').Char.MakeScope ).End)]"
 						multiline = yes          
 					}
 				}
@@ -88,8 +81,6 @@ window = {
 						name = "save_note_button"
 						text = "SAVE_NOTE"
 						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target', GetPlayer.MakeScope ).End)]"
-						#onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target', Character.MakeScope ).End)]"
-						#onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('target', CharacterWindow.GetCharacter.MakeScope ).End )]"
 					}
 				}
 			}
