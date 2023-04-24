@@ -1,0 +1,1 @@
+gui/window_notes.gui = notes_window

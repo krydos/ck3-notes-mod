@@ -4,19 +4,29 @@
 
 window = {
 	name = "notes_window"
+	widgetid = "notes_window"
 	size = { 750 700 }
 	parentanchor = center
-	datacontext = "[GetScriptedGui('notes_gui')]"
+
+	datacontext = "[GetVariableSystem]"
+	datacontext = "[Character]"
 
 	layer = top
+
+	visible = yes
 
 	using = Window_Movable
 	using = Window_Background
 	using = Window_Decoration_Spike
 	using = Animation_ShowHide_Standard
 
+	datacontext = "[GetScriptedGui('notes_gui')]"
+	#datacontext = "[GetScriptedGui('notessetvar_gui')]"
+	#datacontext = "[CharacterWindow.GetCharacter]"
+
 	vbox = {
 		using = Window_Margins
+		
 
 		header_pattern = {
 			layoutpolicy_horizontal = expanding
@@ -40,8 +50,7 @@ window = {
 			vbox = {
 				name = "textinput_holder"						
 				layoutpolicy_horizontal = expanding
-				spacing = 0
-
+				spacing = 0				
 
 				editbox_standard_with_label = {
 					layoutpolicy_horizontal = expanding
@@ -54,13 +63,21 @@ window = {
 
 					blockoverride "editbox_properties"
 					{
+						#datacontext = "[CharacterWindow.GetCharacter]"
+						#datacontext = "[GetPlayer]"
+						
+						
 						name = "note_textarea"
+						#text = "[Select_CString( GetVariableSystem.Exists('notes_character'), 'hello', 'world' )]"
+						text = "[GetPlayer.MakeScope.Var('test_value').GetValue.MakeScope.GetID]"
+						#text = "[GetVariableSystem.Get( 'testing' )]"
 						multiline = yes          
 					}
 				}
 
 				hbox = {
 					layoutpolicy_horizontal = expanding
+					
 
 					background = {
 						using = Background_Area
@@ -70,7 +87,9 @@ window = {
 					button_primary = {
 						name = "save_note_button"
 						text = "SAVE_NOTE"
-						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('target', CharacterWindow.GetCharacter.MakeScope ).End)]"
+						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target', GetPlayer.MakeScope ).End)]"
+						#onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target', Character.MakeScope ).End)]"
+						#onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('target', CharacterWindow.GetCharacter.MakeScope ).End )]"
 					}
 				}
 			}
